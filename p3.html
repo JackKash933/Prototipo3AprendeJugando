@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende Jugando - Primaria</title>
+    <!-- Fuentes redondeadas y amigables para niños -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="p3.css">
+</head>
+<body>
+    <!-- Nubes y globos flotantes decorativos de fondo -->
+    <div class="decoracion-nube" style="top: 10%; left: 5%;">☁️</div>
+    <div class="decoracion-nube" style="top: 25%; right: 8%;">☁️</div>
+    <div class="decoracion-globo" style="bottom: 15%; left: 8%;">🎈</div>
+    <div class="decoracion-globo" style="bottom: 30%; right: 6%;">⭐</div>
+
+    <div class="app-container">
+        <!-- BARRA SUPERIOR (HUD) -->
+        <header class="barra-superior">
+            <div class="seccion-izquierda">
+                <button id="btnVolver" class="btn-circular escondido" onclick="volverAlMenu()">⬅️</button>
+                <div class="titulo-app">
+                    <span class="emoji-logo">🎒</span>
+                    <h1>Aprende Jugando</h1>
+                </div>
+            </div>
+
+            <div class="hud-stats">
+                <!-- Contenedor de corazones con soporte para animaciones -->
+                <div class="contenedor-corazones" id="corazonesHud">
+                    <div class="slot-corazon" id="slot-1">❤️</div>
+                    <div class="slot-corazon" id="slot-2">❤️</div>
+                    <div class="slot-corazon" id="slot-3">❤️</div>
+                </div>
+
+                <!-- Indicador de Monedas -->
+                <div class="marcador-monedas">
+                    <span class="moneda-emoji">🪙</span>
+                    <span id="contadorMonedas">100</span>
+                </div>
+
+                <!-- Botón de Sonido -->
+                <button id="btnSonido" class="btn-sonido" onclick="alternarSonido()" title="Activar/Desactivar Sonido">🔊</button>
+            </div>
+        </header>
+
+        <main class="pantalla-principal">
+            
+            <!-- PANTALLA 1: SELECCIÓN DE AVATAR -->
+            <section id="pantallaAvatar" class="pantalla">
+                <div class="encabezado-pantalla">
+                    <h2>✨ ¡Hola Amiguito! ✨</h2>
+                    <p>Elige a tu compañero de aventuras para jugar y aprender hoy:</p>
+                </div>
+                <div class="grid-avatars" id="gridAvatars">
+                    <!-- Los avatares se generan por JS -->
+                </div>
+            </section>
+
+            <!-- PANTALLA 2: SELECCIÓN DE MATERIAS (MENÚ) -->
+            <section id="pantallaMaterias" class="pantalla escondido">
+                
+                <!-- Banner del compañero activo -->
+                <div class="banner-companero">
+                    <div class="avatar-burbuja" id="avatarBurbuja">🐶</div>
+                    <div class="globo-dialogo">
+                        <div class="triangulo-globo"></div>
+                        <p id="textoCompanero">¡Hola! Estoy listo para aprender contigo. ¡Guau!</p>
+                        <div id="notificacionRacha" class="racha-aviso escondido">🔥 ¡Llevas una racha de respuestas correctas!</div>
+                    </div>
+                </div>
+
+                <div class="encabezado-pantalla">
+                    <h3>¿Qué quieres aprender y jugar hoy? 🎮</h3>
+                    <p>Selecciona una materia divertida para iniciar tus retos:</p>
+                </div>
+
+                <div class="grid-materias" id="gridMaterias">
+                    <!-- Las materias se generan por JS -->
+                </div>
+
+                <!-- Sala de trofeos/medallas del estudiante -->
+                <div class="panel-logros">
+                    <h4>Mis Medallas de Primaria 🏆</h4>
+                    <div class="lista-medallas" id="listaMedallas">
+                        <p class="texto-vacio">¡Completa materias con éxito para ganar medallas de oro!</p>
+                    </div>
+                </div>
+
+                <div class="acciones-menu">
+                    <button class="btn-secundario" onclick="reiniciarProgreso()">🔄 Reiniciar todo mi progreso</button>
+                </div>
+            </section>
+
+            <!-- PANTALLA 3: ÁREA DE JUEGO / RETOS -->
+            <section id="pantallaJuego" class="pantalla escondido">
+                <!-- Barra de progreso de la materia -->
+                <div class="barra-progreso-contenedor">
+                    <span id="textoProgreso">Pregunta 1 de 5</span>
+                    <div class="progreso-fondo">
+                        <div class="progreso-lleno" id="progresoBarra"></div>
+                    </div>
+                    <span class="meta-emoji">🏆</span>
+                </div>
+
+                <!-- Zona del reto -->
+                <div class="tarjeta-pregunta" id="tarjetaPregunta">
+                    <div class="categoria-badge" id="badgeCategoria">MATEMÁTICAS</div>
+                    <h3 id="textoPregunta">¿Cuánto es 2 + 2?</h3>
+                    
+                    <!-- Área para apoyo visual (Ej: manzanas, plátanos, etc.) -->
+                    <div class="apoyo-visual" id="apoyoVisual">🍎 🍎 + 🍎 🍎</div>
+
+                    <!-- Cuadrícula de respuestas -->
+                    <div class="grid-opciones" id="gridOpciones">
+                        <!-- Botones de opciones generados por JS -->
+                    </div>
+
+                    <!-- Tarjeta de explicación y retroalimentación -->
+                    <div class="panel-explicacion escondido" id="panelExplicacion">
+                        <h4 id="tituloExplicacion">🎉 ¡Excelente Trabajo!</h4>
+                        <p id="textoExplicacion">¡Muy bien hecho! 2 más 2 son 4 manzanas en total.</p>
+                        <div class="acciones-explicacion">
+                            <button id="btnSiguiente" class="btn-principal" onclick="irASiguientePregunta()">¡Siguiente Reto! ➡️</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PANTALLA 4: FIN DEL JUEGO / SIN CORAZONES -->
+            <section id="pantallaGameOver" class="pantalla escondido">
+                <div class="tarjeta-alerta error">
+                    <div class="emoji-celebracion">🩹❤️🪄</div>
+                    <h2>¡Oh no! ¡Te quedaste sin corazones!</h2>
+                    <p>Tus corazones se cansaron de saltar y volaron a descansar. ¡Pero no te preocupes! Tu compañero te regala energía mágica.</p>
+                    <button class="btn-principal btn-grande" onclick="recuperarCorazones()">❤️ ¡Reactivar mis Corazones Mágicos!</button>
+                    <button class="btn-enlace" onclick="volverAlMenu()">Volver al menú de materias</button>
+                </div>
+            </section>
+
+            <!-- PANTALLA 5: CELEBRACIÓN DE MATERIA COMPLETADA -->
+            <section id="pantallaVictoria" class="pantalla escondido">
+                <div class="tarjeta-alerta victoria">
+                    <div class="emoji-celebracion">👑🥇🌟</div>
+                    <h2 id="tituloVictoria">¡Lección Completada!</h2>
+                    <p>¡Eres un súper experto! Tu compañero está dando vueltas de alegría.</p>
+                    
+                    <div class="premios-resumen">
+                        <div class="premio-card">
+                            <div class="premio-icono">🪙</div>
+                            <div class="premio-cantidad">+50</div>
+                            <div class="premio-nombre">Monedas</div>
+                        </div>
+                        <div class="premio-card medalla-animada">
+                            <div class="premio-icono">🥇</div>
+                            <div class="premio-cantidad">Oro</div>
+                            <div class="premio-nombre">Medalla</div>
+                        </div>
+                    </div>
+
+                    <div class="acciones-victoria">
+                        <button class="btn-principal" onclick="volverAlMenu()">🗺️ Ver otras materias</button>
+                        <button class="btn-secundario" onclick="repetirMateria()">🔄 Repetir materia</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>✨ Creado con mucho amor para niños de Primero y Segundo de Primaria • ¡Aprende Jugando! ✨</p>
+        </footer>
+    </div>
+
+    <!-- Script de lógica interactiva -->
+    <script src="p3.js"></script>
+</body>
+</html>
